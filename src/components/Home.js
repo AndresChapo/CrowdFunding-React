@@ -6,8 +6,8 @@ export class Home extends Component {
 
     state = { address: '' }
 
-    contructor(props) {
-        this.super(props);
+    constructor(props) {
+        super(props);
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);

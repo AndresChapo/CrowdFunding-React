@@ -53,6 +53,7 @@ export class Campaign extends Component {
         deadlineDate.setUTCSeconds(deadlineSeconds)
 
         const accounts = await web3.eth.getAccounts();
+        if (!accounts.length){return {}}
         return {
             name: name,
             targetAmount: targetAmount,
@@ -145,7 +146,21 @@ export class Campaign extends Component {
         </div>
     }
 
-    onContribute(event) {
-        alert(`Contributing ${this.state.contributionAmount} to a contract`)
+    async onContribute(event) {
+        const accounts = await web3.eth.getAccounts();
+        const amount = web3.utils.toWei(
+            this.state.contributionAmount,
+            'ether'
+        )
+        const contract = createContract(this.getCampaignAddress())
+        await contract.methods.contribute().send({
+            from: accounts[0],
+            value: amount
+        })
+
+        const campaign = this.state.campaign
+        campaign.totalCollected = Number.parseInt(campaign.totalCollected) + Number.parseInt(amount)
+
+        this.setState({ campaign: campaign })
     }
 };

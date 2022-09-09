@@ -1,19 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { Component, Route, Router, Switch } from "react";
-//import history from './react-router-dom';
+import React, { Component } from "react";
+import { createBrowserHistory } from 'history';
+import { Router, Route, Switch} from 'react-router-dom';
 import { Container, Menu } from 'semantic-ui-react'
 
 import { Campaign } from './components/Campaign';
 import { Home } from './components/Home';
 import { NotFound } from './components/NotFound';
 
-
+export const history = createBrowserHistory();
 
 class App extends Component {
 	render() {
 		return (
-			<Router history={History}>
+			<Router history={history}>
 				<Container>
           <Menu secondary>
             <Menu.Item
@@ -33,11 +34,13 @@ class App extends Component {
 		);
 	}
 
-  bavigateToHome(e){
+  navigateToHome(e){
     e.preventDefault();
 //    history.pushState('/');
   }
 };
+  export default App;
+
 
 //function App() {
 // return (
@@ -60,4 +63,4 @@ class App extends Component {
 // );
 //
 
-export default App;
+
